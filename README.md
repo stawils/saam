@@ -1,4 +1,4 @@
-# 🧠 SAAM — Signal-Aligned Activation Manifold
+# SAAM — Signal-Aligned Activation Manifold
 
 <img src="assets/saam-logo.png" alt="SAAM: Signal-Aligned Activation Manifold">
 
@@ -43,7 +43,7 @@ SAAM operates via a specialized symbolic scripting language called SAAMscript, w
 
 Each signal block represents a cognitive action, intent loop, or recovery path.
 
-### 🧠 Reflexive Modulation
+### Reflexive Modulation
 
 SAAM includes mechanisms for:
 
@@ -53,7 +53,7 @@ SAAM includes mechanisms for:
 - Recovery & uncertainty flows (`??`, `!!`) — Conditional branching based on instability
 - Full trace generation and belief diffs
 
-### 🧩 Core Modules
+### Core Modules
 
 | Module | Purpose |
 |--------|---------|
@@ -66,7 +66,7 @@ SAAM includes mechanisms for:
 | RecoveryEngine | Handles `??` and `!!` flows for error correction |
 | TraceLogger | Captures signal trails, overrides, meta-narratives |
 
-## 📚 SAAMscript Language
+##  SAAMscript Language
 
 A formally specified, recursive language for symbolic signal design.
 
@@ -88,7 +88,7 @@ Key operators:
 
 See `docs/SAAMsignal-language-spec.md` for the full EBNF grammar and operator breakdown.
 
-## 💡 Why SAAM?
+## Why SAAM?
 
 Because most modern systems only simulate language —
 SAAM inhabits it.
@@ -102,7 +102,7 @@ SAAM agents:
 
 > "SAAM doesn't just activate meaning. It listens to itself becoming."
 
-## 🧭 Ecosystem
+## Ecosystem
 
 The core components of the SAAM architecture include:
 
@@ -115,27 +115,7 @@ The core components of the SAAM architecture include:
 
 These components work together to enable the traceable and self-aware behavior SAAM aims for.
 
-## 📂 Repository Structure
 
-```bash
-saam/
-├── .gitignore
-├── LICENSE
-├── README.md               # This file
-├── agent/                  # Example SAAM agent configurations & kernels
-│   ├── SAAM-kernel-v1.md   # Core cognitive kernel specification v1.0
-│   ├── coding_expert_saam.md
-│   ├── game_ai_saam.md
-│   ├── law_expert_saam.md
-│   ├── researcher_saam.md
-│   └── storyteller_saam.md
-├── assets/                 # Supporting files (e.g., logos)
-│   └── saam-logo.png
-└── docs/                   # Core documentation
-    ├── SAAMsignal-core-symbols.md      # Operator definitions and symbolic semantics
-    ├── SAAMsignal-interpreter-core.md  # Architecture and execution model
-    └── SAAMsignal-language-spec.md     # Formal grammar of SAAMscript
-```
 
 ## 🚀 Getting Started
 
@@ -158,7 +138,6 @@ Here's how you might interact with a SAAM agent conceptually:
 *Combined Input (Signal + Prompt):*
 
 ```saam
-// SAAM Signal Configuration (Concise - see agent/coding_expert_saam.md)
 [signal:agent.code.develop.concise++] :::
   tone(precise) | style(code-centric) |
   flow(understand.reqs → plan.approach → generate.code → execute.tests) |
@@ -168,8 +147,7 @@ Here's how you might interact with a SAAM agent conceptually:
   response.texture(functional.code)
 → /saam/kernel.coding.v1
 
----
-// User Prompt
+
 Please write a Python function that takes a list of integers and returns a new list containing only the even numbers, preserving the original order. Include a docstring and basic unit tests.
 ```
 
@@ -180,7 +158,6 @@ Please write a Python function that takes a list of integers and returns a new l
 *Combined Input (Signal + Prompt):*
 
 ```saam
-// SAAM Signal Configuration (Concise - see agent/storyteller_saam.md)
 [signal:agent.storyteller.generate.concise++] :::
   tone(genre.appropriate) | style(vivid.imagery + character.voice_aligned) |
   flow(plan.scene → develop.chars → generate.prose) |
@@ -190,8 +167,7 @@ Please write a Python function that takes a list of integers and returns a new l
   response.texture(polished-narrative)
 → /saam/kernel.storyteller.v1
 
----
-// User Prompt
+
 Write a short scene for a sci-fi story. Captain Eva Rostova confronts her first mate, Kael, on the bridge of their starship, the 'Nomad'. She suspects him of sabotaging the navigation system. The mood should be tense and suspicious.
 ```
 
