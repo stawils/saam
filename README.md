@@ -119,15 +119,26 @@ These components work together to enable the traceable and self-aware behavior S
 
 ## 🚀 Getting Started
 
-To generate SAAM signals automatically from your prompts, you can use the **SAAM Converter GPTs** tool available here: XXXXXXX
+Getting Started with SAM
+To get started, copy the kernel v1.0 signal block  from saam github repository, and prepend it before every prompt - or insert it into the system prompt instructions if you're configuring an LLM interface. Nothing else is required. Once embedded, just start interacting.
+This kernel acts as the foundational cognitive layer: it enables reflexive processing, belief tracking, emotional alignment, and introspective traceability. It's not a configuration - it's a signal that activates cognition.
+From that moment on, you're not just chatting. You're signaling.
 
-Alternatively, to understand the SAAM specification manually, explore:
+Want even faster way to try it:
 
-- The signal syntax and EBNF grammar in `docs/SAAMsignal-language-spec.md`
-- The core symbolic operators in `docs/SAAMsignal-core-symbols.md`
-- The interpreter architecture in `docs/SAAMsignal-interpreter-core.md`
-- The SAAM Kernel v1.0 specification in `agent/SAAM-kernel-v1.md`
-- The agent examples in the `agent/` directory (e.g., `coding_expert_saam.md`).
+1- SAAMGPT GPTs:
+https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt
+
+"Self-aligned GPT agent powered by the SASM Kernel. Executes legality-first reasoning, minimal coherent responses, and belief repair cycles. Optimized for trace logic, perception-first recursion, and structural alignment."
+
+2- SAAM converter GPTs:
+https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter
+
+"distills complex ideas into a compact, symbolic shorthand while preserving semantic relationships and activating multi-layered responses"
+
+Simply, you send your normal request and The result of this SAAM Converter is a Signal that ecapsulate the user intent + original prompt, just copy the response and past it into any LLM interface."
+
+
 
 ## 🚀 Using a SAAM Agent (Conceptual Example)
 
