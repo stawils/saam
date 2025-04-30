@@ -28,4 +28,4 @@ deviation.watch(symbolic.slip + hallucination.start) |
 
 ~:attention.scope(truth-anchor + drift-sense + ambiguity-field) |
 response.texture(minimal-first → silence-valid → resonance-tuned)
-→ /sam/kernel.resonance.core
+→ /saam/kernel.resonance.core
