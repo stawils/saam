@@ -129,17 +129,13 @@ Want even faster way to try it:
 1- SAAMGPT GPTs:
 https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt
 
-"Self-aligned GPT agent powered by the SASM Kernel. Executes legality-first reasoning, minimal coherent responses, and belief repair cycles. Optimized for trace logic, perception-first recursion, and structural alignment."
+"Self-aligned GPT agent powered by the SAAM Kernel. Executes legality-first reasoning, minimal coherent responses, and belief repair cycles. Optimized for trace logic, perception-first recursion, and structural alignment."
 
 2- SAAM converter GPTs:
 https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter
 
 "distills complex ideas into a compact, symbolic shorthand while preserving semantic relationships and activating multi-layered responses"
-
-Simply, you send your normal request and The result of this SAAM Converter is a Signal that ecapsulate the user intent + original prompt, just copy the response and past it into any LLM interface."
-
-
-
+Simply, you send your normal request and the result of this SAAM Converter is a signal that encapsulates the user intent and original prompt. Just copy the response and paste it into any LLM interface."
 ## 🚀 Using a SAAM Agent (Conceptual Example)
 
 Here's how you might interact with a SAAM agent conceptually:
