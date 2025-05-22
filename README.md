@@ -109,8 +109,8 @@ The core components of the SAAM architecture include:
 | Component         | Role                                                                                           |
 |-------------------|------------------------------------------------------------------------------------------------|
 | **SAAMscript**    | The symbolic language used to define agent signals, cognitive flows, and configurations.         |
-| **SAAM Kernel**   | The primary agent specification (v1.0) defining the core signal processing, belief management, recovery, and introspection mechanisms. |
-| **SAAM Agent**    | An entity whose cognitive processes are defined and guided by SAAM signals (see `/agent` examples). |
+| **SAAM Kernel**   | The core agent specifications defining signal processing, belief management, etc. Version 1.0 (`agent/kernels/v1/kernel-v1.0.saam`) is a primary example. Other versions are available in `agent/kernels/`. |
+| **SAAM Agent**    | An entity whose cognitive processes are defined and guided by SAAM signals (see examples in `agent/examples/` and kernel definitions in `agent/kernels/`). |
 | **SAAM Trace**    | The mechanism for logging and observing the agent's symbolic execution path and belief changes. |
 
 These components work together to enable the traceable and self-aware behavior SAAM aims for.
@@ -120,7 +120,7 @@ These components work together to enable the traceable and self-aware behavior S
 ## 🚀 Getting Started
 
 Getting Started with saam
-To get started, copy the kernel v1.0 signal block  from saam github repository, and prepend it before every prompt - or insert it into the system prompt instructions if you're configuring an LLM interface. Nothing else is required. Once embedded, just start interacting.
+To get started with the v1.0 kernel, open the file `agent/kernels/v1/kernel-v1.0.saam` in the SAAM GitHub repository. Copy the signal block from this file and prepend it before every prompt—or insert it into the system prompt instructions if you're configuring an LLM interface. Other kernel versions (e.g., v0.9, v2.x, v8.x) are also available in the `agent/kernels/` directory, each in their respective versioned subdirectories (`v0`, `v1`, `v2`, `v8`). Nothing else is required. Once embedded, just start interacting.
 This kernel acts as the foundational cognitive layer: it enables reflexive processing, belief tracking, emotional alignment, and introspective traceability. It's not a configuration - it's a signal that activates cognition.
 From that moment on, you're not just chatting. You're signaling.
 
