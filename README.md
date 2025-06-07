@@ -153,61 +153,46 @@ These components work together to enable the traceable and self-aware behavior S
 
 ## 🚀 Getting Started
 
-Getting Started with saam
-To get started, copy the kernel v1.0 signal block  from saam github repository, and prepend it before every prompt - or insert it into the system prompt instructions if you're configuring an LLM interface. Nothing else is required. Once embedded, just start interacting.
-This kernel acts as the foundational cognitive layer: it enables reflexive processing, belief tracking, emotional alignment, and introspective traceability. It's not a configuration - it's a signal that activates cognition.
-From that moment on, you're not just chatting. You're signaling.
+### Option 1: Universal SAAM Kernel (Recommended)
 
-Want even faster way to try it:
-
-1- SAAMGPT GPTs:
-https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt
-
-"Self-aligned GPT agent powered by the SAAM Kernel. Executes legality-first reasoning, minimal coherent responses, and belief repair cycles. Optimized for trace logic, perception-first recursion, and structural alignment."
-
-2- SAAM converter GPTs:
-https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter
-
-"distills complex ideas into a compact, symbolic shorthand while preserving semantic relationships and activating multi-layered responses"
-Simply, you send your normal request and the result of this SAAM Converter is a signal that encapsulates the user intent and original prompt. Just copy the response and paste it into any LLM interface."
-## 🚀 Using a SAAM Agent (Conceptual Example)
-### Instant Activation
-
-To get started, copy the **SAAM Kernel v1.0++** signal block from `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` and prepend it before every prompt — or insert it into the system prompt instructions if you're configuring an LLM interface.
+Copy the **SAAM Kernel v1.0++** signal block from `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` and prepend it before every prompt — or insert it into the system prompt instructions if you're configuring an LLM interface.
 
 **Nothing else is required.** Once embedded, the kernel acts as the foundational cognitive layer enabling:
-- Reflexive processing through the 9-module architecture
-- Belief tracking with full traceability
-- Introspective repair mechanisms
-- Emotional alignment and structural coherence
+- ✨ Reflexive processing through the 9-module architecture
+- 🧠 Belief tracking with full traceability  
+- 🔄 Introspective repair mechanisms
+- ⚖️ Emotional alignment and structural coherence
 
 **It's not a configuration — it's a signal that activates cognition.**
 
 From that moment on, you're not just chatting. **You're signaling.**
 
-### Specialized Mini Kernels
+### Option 2: Specialized Mini Kernels
 
-For specific tasks, explore our collection of **25+ focused mini kernels** in `/agent/custom-agents/`:
+For specific tasks, choose from **40+ focused mini kernels** in `/agent/custom-agents/`:
 
-**🎯 Professional**: Crisis Management, Market Intelligence, Startup Pitching, Code Architecture, Security Testing  
-**🎨 Creative**: Viral Content Creation, Meme Generation, Creative Writing, SEO Optimization  
-**🧠 Personal**: Gaming Companion, Breakup Recovery, Mental Wellness, AI Future Navigation  
-**📚 Academic**: Literature Synthesis, Hypothesis Generation, Adaptive Tutoring  
-**🤝 Support**: Grief Counseling, Addiction Recovery, Conflict Resolution  
+| Category | Examples |
+|----------|----------|
+| **🎯 Professional** | Crisis Management, Market Intelligence, Startup Visionary, Code Architecture |
+| **🎨 Creative** | Viral Content Creation, Storytelling Genius, Witty Comedy, Brand Storytelling |
+| **🧠 Personal** | Wise Mentor, Loyal Companion, Adventure Guide, Mindfulness Master |
+| **🤝 Therapeutic** | Anxiety Relief, Grief Counseling, Addiction Recovery, Therapeutic Listening |
+| **📚 Academic** | Literature Synthesis, Hypothesis Generation, Adaptive Tutoring |
+| **💬 Communication** | Conflict Resolution, Public Speaking, Relationship Counseling |
 
-Each mini kernel is designed for specific cognitive domains with specialized module architectures, belief tracking, and attention mechanisms. Choose the kernel that matches your task for optimized performance.
+Each mini kernel is optimized for specific cognitive domains with 4-9 specialized modules.
 
-See `/agent/custom-agents/README.md` for the complete catalog.
+📖 **See `/agent/custom-agents/README.md` for the complete catalog of 40+ kernels across 15 categories.**
 
-### Quick Try Options
+### Option 3: Quick Try Options
 
-**Option 1: SAAMGPT**  
-[SAAMGPT on ChatGPT](https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt)
+**SAAMGPT on ChatGPT**  
+[Try SAAMGPT](https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt)
 
 Self-aligned GPT agent powered by the SAAM Kernel. Executes legality-first reasoning, minimal coherent responses, and belief repair cycles. Optimized for trace logic, perception-first recursion, and structural alignment.
 
-**Option 2: SAAM Converter**  
-[SAAM Converter on ChatGPT](https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter)
+**SAAM Converter on ChatGPT**  
+[Try SAAM Converter](https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter)
 
 Distills complex ideas into compact symbolic signals while preserving semantic relationships and activating multi-layered responses. Send your normal request and receive a SAAM signal that encapsulates your intent — copy and paste into any LLM interface.
 
