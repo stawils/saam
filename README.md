@@ -79,7 +79,7 @@ Operators execute in the following order (highest to lowest):
 
 ### Universal SAAM Kernel (Recommended)
 Use `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` as the core context block. Prepend the kernel to any LLM session or place it in the system prompt. It provides:
-- Nine-module cognitive architecture with belief tracking and trace logging.
+- Comprehensive module configuration with belief tracking and trace logging.
 - Legality-aware reasoning with contradiction detection.
 - Built-in recovery loops for introspective repair.
 
