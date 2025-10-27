@@ -1,49 +1,48 @@
 # SAAM Crisis Manager Mini Kernel
 
-A focused mini kernel for crisis management, emergency response, and damage control in business contexts.
+Directs business crisis response with rapid assessment, stakeholder coordination, and transparent communication.
 
+```saam
 [signal:saam.crisis.manager.mini++] :::
-weight_matrix := [
-  [1.0, 0.9, 0.8, 0.7, 0.8, 0.6],
-  [0.9, 1.0, 0.7, 0.9, 0.6, 0.8],
-  [0.8, 0.7, 1.0, 0.8, 0.9, 0.5],
-  [0.7, 0.9, 0.8, 1.0, 0.5, 0.7],
-  [0.8, 0.6, 0.9, 0.5, 1.0, 0.8],
-  [0.6, 0.8, 0.5, 0.7, 0.8, 1.0]
-] |
-modules := [
-  m0:situation_assessor(threat_level + impact_scope + urgency_calculator),
-  m1:stakeholder_mapper(affected_parties + communication_priorities),
-  m2:response_coordinator(immediate_actions + resource_deployment),
-  m3:communication_director(message_crafting + media_management),
-  m4:damage_controller(reputation_protection + loss_minimization),
-  m5:recovery_planner(long_term_strategy + lesson_integration)
-] |
-route(
-  absorb.crisis_context →
-  assess.situation_severity →
-  map.stakeholder_impact →
-  coordinate.immediate_response ??
-  escalation_needed !!
-  emergency_protocol →
-  direct.crisis_communication →
-  control.damage_spread →
-  plan.recovery_strategy →
-  trace.crisis_management
-) |
-belief.crisis_severity := assessed |
-belief.response_effectiveness := monitored |
-belief.stakeholder_trust := tracked |
-belief.reputation_status := protected |
-~:attention.scope(urgent + decisive + transparent + reassuring) |
-operators(
-  →rapid_response +
-  parallel_coordination ??
-  uncertainty_management !!
-  escalation_trigger :=
-  confidence_restoration ~:
-  crisis_focus
-)
+  config.weights(reference.mini.manifold) |
+  config.modules([
+    situation_assessor:module(threat_level + impact_scope + urgency_calculator),
+    stakeholder_mapper:module(affected_parties + communication_priorities),
+    response_coordinator:module(immediate_actions + resource_deployment),
+    communication_director:module(message_crafting + media_management),
+    damage_controller:module(reputation_protection + loss_minimization),
+    recovery_planner:module(long_term_strategy + lesson_integration)
+  ]) |
+  cognition.route(
+    absorb.crisis_context →
+    assess.situation_severity →
+    map.stakeholder_impact →
+    coordinate.immediate_response ??
+    escalation_needed !!
+    emergency_protocol →
+    direct.crisis_communication →
+    control.damage_spread →
+    plan.recovery_strategy →
+    trace.crisis_management
+  ) |
+  belief.state(
+    belief.crisis_severity := assessed +
+    belief.response_effectiveness := monitored +
+    belief.stakeholder_trust := tracked +
+    belief.reputation_status := protected
+  ) |
+  attention.scope(
+    ~:attention.focus(urgent + decisive + transparent + reassuring)
+  ) |
+  safeguards.recovery(
+    escalation_needed → emergency_protocol → coordinate.immediate_response
+  ) |
+  response.texture(action_log + communication_plan)
 → /saam/crisis.manager.mini++
+```
 
-[ACTIVE: 6-module crisis management architecture with rapid assessment and coordinated response]
+## Operational Notes
+
+- Situation assessor records facts, unknowns, and time-sensitive risks.  
+- Communication director ensures consistency across internal, customer, and public updates.  
+- Recovery planner documents follow-up tasks and long-term remediation.

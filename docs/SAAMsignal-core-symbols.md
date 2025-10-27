@@ -1,96 +1,80 @@
-# Core Symbolic Operators — SAAM Signal Language
+# SAAMscript Core Operators
 
-**Version**: `v0.1`  
-**Status**: Draft (Canonical)  
-**Author**: system architect  
-**Purpose**: Define the symbolic operators used in SAAM signal expressions, their meanings, and contextual usage.
 
----
+## Overview
 
-## 🧠 Overview
+SAAMscript relies on a compact set of symbolic operators. During preflight the interpreter validates operator ordering and section context; the LLM runtime then executes the signal and returns a trace that references the same operators. Understanding each operator’s intent and the expected trace artefacts is essential for authoring signals that remain auditable and repairable.
 
-The SAAM symbolic language enables autonomous cognition and recovery using composable, typed operators. These operators control intent routing, arbitration, planning, belief management, and signal fallbacks. This document defines each operator, grouped by purpose, with examples and usage notes.
+Operators are grouped by function below. All precedence references follow the ordering defined in the language specification (`:=` highest, `+` lowest).
 
 ---
 
-## 🔤 Operator Reference Table
+## Flow Control
 
-### 1. **Execution and Flow**
+| Symbol | Name             | Execution Effect                                                                 |
+|--------|------------------|-----------------------------------------------------------------------------------|
+| `→`    | Sequential flow  | Executes the right-hand operand after the left; trace must show ordered steps.   |
+| `+`    | Parallel trigger | Requests concurrent evaluation; trace should report both branches independently. |
+| `=>`   | Strategic link   | Marks a causal or goal-oriented dependency recognised by downstream modules.     |
 
-| Symbol | Name               | Function                            | Example |
-|--------|--------------------|-------------------------------------|---------|
-| `→`    | Sequential flow    | Ordered signal execution            | `reflect → resolve → commit` |
-| `+`    | Conjunction        | Parallel signal activation          | `sense + recall` |
-| `=>`   | Strategic causality| Projects goal relevance             | `verify => adjust` |
+## Intent Boundaries and Arbitration
 
----
+| Symbol | Name                 | Execution Effect                                                                 |
+|--------|----------------------|-----------------------------------------------------------------------------------|
+| `:::`  | Intent boundary      | Splits declaration and execution sections; interpreter uses it to build payloads.|
+| `::>`  | Dominant override    | Left operand takes precedence; trace must log the override decision.             |
+| `::<`  | Subordinate override | Left operand yields if conflict detected; override table retains the outcome.    |
 
-### 2. **Semantic Boundaries**
+## Belief and Attention
 
-| Symbol | Name                        | Function                                 | Example |
-|--------|-----------------------------|------------------------------------------|---------|
-| `:::`  | Signal-intent boundary      | Separates declaration from execution     | `[signal:x] ::: mod.kernel(...)` |
-| `::>`  | Dominant override           | Prioritize left operand                  | `emergency-plan ::> default-mode` |
-| `::<`  | Subordinate override        | Subordinate left operand                 | `low-risk-mode ::< recovery-mode` |
+| Symbol | Name                | Execution Effect                                                                |
+|--------|---------------------|----------------------------------------------------------------------------------|
+| `:=`   | Belief assignment   | Writes a value into belief state; BeliefManager confirms via returned diffs.     |
+| `~:`   | Attention modulation| Adjusts focus or salience; AttentionRouter validates the delta reported by LLM. |
 
----
+## Recovery and Fault Handling
 
-### 3. **State and Belief**
+| Symbol | Name                | Execution Effect                                                                                   |
+|--------|---------------------|-----------------------------------------------------------------------------------------------------|
+| `??`   | Recovery checkpoint | Introduces a branch activated when instability is detected; trace must indicate trigger status.    |
+| `!!`   | Escalation          | Marks high-priority recovery; RecoveryEngine expects completion details or schedules follow-up.    |
 
-| Symbol | Name                | Function                          | Example |
-|--------|---------------------|-----------------------------------|---------|
-| `:=`   | Belief assignment   | Sets value in belief state memory | `belief.check := true` |
-| `~:`   | Attention modulation| Adjusts focus/salience            | `~:attention.scope(threat + queen-line)` |
+## Trace and Commentary
 
----
-
-### 4. **Error and Recovery Control**
-
-| Symbol | Name                   | Function                                  | Example |
-|--------|------------------------|-------------------------------------------|---------|
-| `??`   | Uncertainty checkpoint | Conditional signal based on instability   | `resolve ?? legality-echo` |
-| `!!`   | Escalation trigger     | Urgent fallback activation                | `verify !! fallback-plan` |
+| Symbol | Name             | Execution Effect                                                        |
+|--------|------------------|-------------------------------------------------------------------------|
+| `#`    | Inline comment   | Non-executable metadata captured in TraceLogger for contextual review. |
 
 ---
 
-### 5. **Trace and Meta**
+## Usage Patterns
 
-| Symbol | Name              | Function                        | Example |
-|--------|-------------------|----------------------------------|---------|
-| `#`    | Inline comment    | Trace hint, non-executable       | `belief.set := true # after fallback` |
-
----
-
-## ✅ Symbol Use Patterns
-
-### Chained Control
+### Sequenced Plan with Recovery
 ```saam
 reflect → resolve ?? legality-echo !! patch → commit
 ```
-> Sequential plan with conditional error routing and recovery fallback.
-
----
+- `resolve` executes after `reflect`.
+- If instability is reported, `legality-echo` is activated; escalation to `patch` must be logged before `commit`.
 
 ### Arbitration and Attention
 ```saam
 legality-loop-filter::<intent.override + ~:attention.scope(threat-path)
 ```
-> Arbitration with subordinate legality check and salience-driven attention.
-
----
+- `legality-loop-filter` yields when `intent.override` asserts dominance.
+- Attention scope request is recorded in the payload and verified against returned salience data.
 
 ### Belief and Goal Binding
 ```saam
 belief.fork_threat := true => activate.counterfactual-map
 ```
-> Declarative state memory triggers goal-specific planning.
+- Belief assignment is committed after the trace confirms success.
+- Strategic link expresses that `activate.counterfactual-map` depends on the new belief state.
 
 ---
 
-## 📌 Notes
+## Notes
 
-- Operator resolution follows strict **precedence**:
-  ```
-  := > ::< > ::> > => > → > +
-  ```
-- All operators are **contextual** to section type (e.g., belief modifiers inside `mod.kernel`, attention inside `~:` scope).
+- Operator precedence is fixed: `:= > ::< > ::> > => > → > +`. Signals must honour this ordering or preflight will fail.  
+- Recovery branches (`??`, `!!`) must reference defined symbols or flow targets; unresolved branches prompt follow-up signals.  
+- Inline comments (`# ...`) should provide concise trace hints only; extensive documentation belongs in Markdown surrounding the signal.  
+- See `docs/SAAMsignal-language-spec.md` for grammar rules and section constraints.

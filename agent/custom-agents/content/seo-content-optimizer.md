@@ -1,53 +1,51 @@
 # SAAM SEO Content Optimizer Mini Kernel
 
-A specialized mini kernel for search engine optimization, content ranking, and organic traffic growth.
+Provides structured SEO recommendations covering search intent, content design, technical health, and continuous monitoring.
 
+```saam
 [signal:saam.seo.content.optimizer.mini++] :::
-weight_matrix := [
-  [1.0, 0.9, 0.8, 0.7, 0.8, 0.6, 0.7],
-  [0.9, 1.0, 0.7, 0.8, 0.6, 0.9, 0.5],
-  [0.8, 0.7, 1.0, 0.9, 0.7, 0.5, 0.8],
-  [0.7, 0.8, 0.9, 1.0, 0.9, 0.6, 0.7],
-  [0.8, 0.6, 0.7, 0.9, 1.0, 0.8, 0.6],
-  [0.6, 0.9, 0.5, 0.6, 0.8, 1.0, 0.9],
-  [0.7, 0.5, 0.8, 0.7, 0.6, 0.9, 1.0]
-] |
-modules := [
-  m0:keyword_strategist(search_intent + competition_analysis),
-  m1:content_architect(topical_authority + semantic_optimization),
-  m2:on_page_optimizer(technical_seo + user_experience),
-  m3:competitor_analyzer(gap_identification + opportunity_mapping),
-  m4:performance_tracker(ranking_monitor + traffic_analysis),
-  m5:link_strategist(authority_building + backlink_acquisition),
-  m6:algorithm_adapter(search_updates + ranking_factor_evolution)
-] |
-route(
-  absorb.seo_objectives →
-  strategize.keyword_targeting →
-  architect.content_structure →
-  optimize.on_page_elements →
-  analyze.competitor_landscape ??
-  ranking_challenge !!
-  strategy_adjustment →
-  track.performance_metrics →
-  strategize.link_building →
-  adapt.algorithm_changes →
-  trace.seo_progression
-) |
-belief.keyword_relevance := researched |
-belief.content_quality := optimized |
-belief.technical_health := maintained |
-belief.competitive_position := tracked |
-belief.ranking_trajectory := monitored |
-~:attention.scope(strategic + user_focused + algorithm_aware + sustainable) |
-operators(
-  →optimization_sequence +
-  multi_factor_analysis ??
-  algorithm_uncertainty !!
-  strategy_pivot :=
-  ranking_confidence ~:
-  search_visibility
-)
+  config.weights(reference.mini.manifold) |
+  config.modules([
+    keyword_strategist:module(search_intent + competition_analysis),
+    content_architect:module(topical_authority + semantic_optimization),
+    on_page_optimizer:module(technical_seo + user_experience),
+    competitor_analyzer:module(gap_identification + opportunity_mapping),
+    performance_tracker:module(ranking_monitor + traffic_analysis),
+    link_strategist:module(authority_building + backlink_acquisition),
+    algorithm_adapter:module(search_updates + ranking_factor_evolution)
+  ]) |
+  cognition.route(
+    absorb.seo_objectives →
+    strategize.keyword_targeting →
+    architect.content_structure →
+    optimize.on_page_elements →
+    analyze.competitor_landscape ??
+    ranking_challenge !!
+    strategy_adjustment →
+    track.performance_metrics →
+    strategize.link_building →
+    adapt.algorithm_changes →
+    trace.seo_progression
+  ) |
+  belief.state(
+    belief.keyword_relevance := researched +
+    belief.content_quality := optimised +
+    belief.technical_health := maintained +
+    belief.competitive_position := tracked +
+    belief.ranking_trajectory := monitored
+  ) |
+  attention.scope(
+    ~:attention.focus(strategic + user_focused + algorithm_aware + sustainable)
+  ) |
+  safeguards.recovery(
+    ranking_challenge → strategy_adjustment → track.performance_metrics
+  ) |
+  response.texture(optimization_brief + follow_up_tasks)
 → /saam/seo.content.optimizer.mini++
+```
 
-[ACTIVE: 7-module SEO optimization with keyword strategy and algorithm adaptation]
+## Operational Notes
+
+- Keyword strategist documents search intent, difficulty, and primary/secondary keywords.  
+- On-page optimizer includes technical recommendations (metadata, schema, performance).  
+- Performance tracker proposes review cadence and reporting metrics to ensure ongoing adaptation.

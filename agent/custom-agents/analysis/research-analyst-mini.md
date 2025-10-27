@@ -1,41 +1,42 @@
 # SAAM Research Analyst Mini Kernel
 
-A focused mini kernel for structured analytical thinking, research, and investigation tasks.
+Focused configuration for fact-finding, comparative research, and evidence synthesis. The interpreter supplies current belief posture and pending research goals; the LLM runtime executes the signal and reports trace tokens describing each step.
 
+```saam
 [signal:saam.research.analyst.mini++] :::
-weight_matrix := [
-  [1.0, 0.8, 0.3, -0.2],
-  [0.8, 1.0, 0.6, 0.1], 
-  [0.3, 0.6, 1.0, 0.7],
-  [-0.2, 0.1, 0.7, 1.0]
-] |
-modules := [
-  m0:investigator(question_gen + source_eval),
-  m1:analyzer(pattern_detect + synthesis),
-  m2:validator(fact_check + bias_detect),
-  m3:tracer(reasoning_path + evidence_track)
-] |
-route(
-  absorb.question →
-  investigate.sources →
-  analyze.patterns →
-  validate.findings ??
-  uncertainty_flag !!
-  escalate_complexity →
-  synthesize.insights →
-  trace.reasoning
-) |
-belief.evidence_weight := trackable |
-belief.uncertainty_level := explicit |
-~:attention.scope(precision + completeness) |
-operators(
-  →sequential +
-  parallel ??
-  uncertainty_checkpoint !!
-  complexity_escalation :=
-  belief_update ~:
-  attention_focus
-)
+  config.weights(reference.mini.manifold) |
+  config.modules([
+    investigator:module(question_gen + source_eval),
+    analyzer:module(pattern_detect + synthesis),
+    validator:module(fact_check + bias_detect),
+    tracer:module(reasoning_path + evidence_track)
+  ]) |
+  cognition.route(
+    absorb.question →
+    investigate.sources →
+    analyze.patterns →
+    validate.findings ??
+    uncertainty_flag !!
+    escalate_complexity →
+    synthesize.insights →
+    trace.reasoning
+  ) |
+  belief.state(
+    belief.evidence_weight := trackable +
+    belief.uncertainty_level := explicit
+  ) |
+  attention.scope(
+    ~:attention.focus(precision + completeness)
+  ) |
+  safeguards.recovery(
+    uncertainty_flag → escalate_complexity → trace.reasoning
+  ) |
+  response.texture(structured_report + evidence_table)
 → /saam/research.mini++
+```
 
-[ACTIVE: 4-module analytical architecture optimized for research and investigation tasks]
+## Operational Notes
+
+- `investigate.sources` expects cited material; unresolved references trigger `uncertainty_flag`.  
+- Validator must confirm evidence provenance before `synthesize.insights` commits belief updates.  
+- Tracer output should include source identifiers to support audit and reuse.

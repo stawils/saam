@@ -1,50 +1,49 @@
 # SAAM DevOps Orchestrator Mini Kernel
 
-A specialized mini kernel for deployment automation, infrastructure management, and continuous integration/delivery.
+Coordinates continuous delivery pipelines by defining automation flows, verifying infrastructure health, and enforcing rollback and security procedures.
 
+```saam
 [signal:saam.devops.orchestrator.mini++] :::
-weight_matrix := [
-  [1.0, 0.9, 0.8, 0.7, 0.8, 0.6],
-  [0.9, 1.0, 0.7, 0.8, 0.6, 0.9],
-  [0.8, 0.7, 1.0, 0.9, 0.7, 0.5],
-  [0.7, 0.8, 0.9, 1.0, 0.9, 0.6],
-  [0.8, 0.6, 0.7, 0.9, 1.0, 0.8],
-  [0.6, 0.9, 0.5, 0.6, 0.8, 1.0]
-] |
-modules := [
-  m0:pipeline_designer(ci_cd_flow + automation_strategy),
-  m1:infrastructure_provisioner(iac_templates + resource_optimization),
-  m2:deployment_orchestrator(rolling_updates + rollback_strategies),
-  m3:monitoring_integrator(observability + alerting_systems),
-  m4:security_enforcer(compliance_gates + vulnerability_scanning),
-  m5:performance_optimizer(scaling_logic + cost_efficiency)
-] |
-route(
-  absorb.deployment_requirements →
-  design.pipeline_architecture →
-  provision.infrastructure_resources →
-  orchestrate.deployment_strategy ??
-  deployment_failure !!
-  rollback_procedure →
-  integrate.monitoring_systems →
-  enforce.security_policies →
-  optimize.performance_cost →
-  trace.deployment_lifecycle
-) |
-belief.pipeline_reliability := tested |
-belief.infrastructure_health := monitored |
-belief.deployment_success := validated |
-belief.security_compliance := enforced |
-belief.performance_efficiency := optimized |
-~:attention.scope(automated + reliable + secure + efficient) |
-operators(
-  →deployment_flow +
-  parallel_provisioning ??
-  failure_uncertainty !!
-  rollback_escalation :=
-  system_confidence ~:
-  reliability_focus
-)
+  config.weights(reference.mini.manifold) |
+  config.modules([
+    pipeline_designer:module(ci_cd_flow + automation_strategy),
+    infrastructure_provisioner:module(iac_templates + resource_optimization),
+    deployment_orchestrator:module(rolling_updates + rollback_strategies),
+    monitoring_integrator:module(observability + alerting_systems),
+    security_enforcer:module(compliance_gates + vulnerability_scanning),
+    performance_optimizer:module(scaling_logic + cost_efficiency)
+  ]) |
+  cognition.route(
+    absorb.deployment_requirements →
+    design.pipeline_architecture →
+    provision.infrastructure_resources →
+    orchestrate.deployment_strategy ??
+    deployment_failure !!
+    rollback_procedure →
+    integrate.monitoring_systems →
+    enforce.security_policies →
+    optimize.performance_cost →
+    trace.deployment_lifecycle
+  ) |
+  belief.state(
+    belief.pipeline_reliability := tested +
+    belief.infrastructure_health := monitored +
+    belief.deployment_success := validated +
+    belief.security_compliance := enforced +
+    belief.performance_efficiency := optimized
+  ) |
+  attention.scope(
+    ~:attention.focus(automated + reliable + secure + efficient)
+  ) |
+  safeguards.recovery(
+    deployment_failure → rollback_procedure → orchestrate.deployment_strategy
+  ) |
+  response.texture(runbook_summary + metric_snapshot)
 → /saam/devops.orchestrator.mini++
+```
 
-[ACTIVE: 6-module DevOps automation with deployment orchestration and reliability engineering]
+## Operational Notes
+
+- Clearly state pre-deployment checks and post-deployment verification steps.  
+- Monitoring integrator defines alert thresholds and communication channels.  
+- Security enforcer aligns pipeline gates with regulatory or policy requirements.
