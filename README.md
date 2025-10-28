@@ -74,8 +74,9 @@ Use `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` as the core context block
 `/agent/custom-agents/` contains more than 40 kernels tuned for specific domains (professional, creative, therapeutic, academic, and more). Select a kernel that matches the target workflow and prepend it to the conversation context. See `/agent/custom-agents/README.md` for the catalog.
 
 ### SAAM Tools on ChatGPT
-- **SAAMGPT:** Full kernel integration for legality-first reasoning and belief repair.
-- **SAAM Converter:** Converts natural-language prompts into structured SAAM signals.
+- [SAAMGPT](https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt): Full kernel integration for legality-first reasoning and belief repair.
+- [SAAM Converter](https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter): Converts natural-language prompts into structured SAAM signals.
+- [SAAM Text2Img Generator](https://chatgpt.com/g/g-681f7688e6cc8191a54b7373809624b5-saam-text2img-generator): A symbolic image generation agent that interprets structured prompts using SAAM signal language. It aligns mood, scene, and composition with symbolic consistency and traceable intent routing.
 
 ## Practical Examples
 
