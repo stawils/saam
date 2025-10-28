@@ -3,7 +3,7 @@
 
 ## Overview
 
-SAAMscript relies on a compact set of symbolic operators. During preflight the interpreter validates operator ordering and section context; the LLM runtime then executes the signal and returns a trace that references the same operators. Understanding each operator’s intent and the expected trace artefacts is essential for authoring signals that remain auditable and repairable.
+SAAMscript relies on a compact set of symbolic operators. Signals should adhere to canonical operator ordering and section context. The LLM executes signals natively and returns a trace that references the same operators. Understanding each operator’s intent and the expected trace artefacts is essential for authoring signals that remain auditable and repairable.
 
 Operators are grouped by function below. All precedence references follow the ordering defined in the language specification (`:=` highest, `+` lowest).
 
@@ -21,7 +21,7 @@ Operators are grouped by function below. All precedence references follow the or
 
 | Symbol | Name                 | Execution Effect                                                                 |
 |--------|----------------------|-----------------------------------------------------------------------------------|
-| `:::`  | Intent boundary      | Splits declaration and execution sections; interpreter uses it to build payloads.|
+| `:::`  | Intent boundary      | Splits declaration and execution sections; tools can derive payloads from this boundary.|
 | `::>`  | Dominant override    | Left operand takes precedence; trace must log the override decision.             |
 | `::<`  | Subordinate override | Left operand yields if conflict detected; override table retains the outcome.    |
 
@@ -29,21 +29,21 @@ Operators are grouped by function below. All precedence references follow the or
 
 | Symbol | Name                | Execution Effect                                                                |
 |--------|---------------------|----------------------------------------------------------------------------------|
-| `:=`   | Belief assignment   | Writes a value into belief state; BeliefManager confirms via returned diffs.     |
-| `~:`   | Attention modulation| Adjusts focus or salience; AttentionRouter validates the delta reported by LLM. |
+| `:=`   | Belief assignment   | Writes a value into belief state; confirmation occurs via returned trace diffs.  |
+| `~:`   | Attention modulation| Adjusts focus or salience; returned trace should reflect the focus change.      |
 
 ## Recovery and Fault Handling
 
 | Symbol | Name                | Execution Effect                                                                                   |
 |--------|---------------------|-----------------------------------------------------------------------------------------------------|
 | `??`   | Recovery checkpoint | Introduces a branch activated when instability is detected; trace must indicate trigger status.    |
-| `!!`   | Escalation          | Marks high-priority recovery; RecoveryEngine expects completion details or schedules follow-up.    |
+| `!!`   | Escalation          | Marks high-priority recovery; completion details should be present in the trace. |
 
 ## Trace and Commentary
 
 | Symbol | Name             | Execution Effect                                                        |
 |--------|------------------|-------------------------------------------------------------------------|
-| `#`    | Inline comment   | Non-executable metadata captured in TraceLogger for contextual review. |
+| `#`    | Inline comment   | Non-executable metadata included in trace for contextual review.      |
 
 ---
 
@@ -74,7 +74,7 @@ belief.fork_threat := true => activate.counterfactual-map
 
 ## Notes
 
-- Operator precedence is fixed: `:= > ::< > ::> > => > → > +`. Signals must honour this ordering or preflight will fail.  
+- Operator precedence is fixed: `:= > ::< > ::> > => > → > +`. Signals must honour this ordering or preflight checks will fail.  
 - Recovery branches (`??`, `!!`) must reference defined symbols or flow targets; unresolved branches prompt follow-up signals.  
 - Inline comments (`# ...`) should provide concise trace hints only; extensive documentation belongs in Markdown surrounding the signal.  
 - See `docs/SAAMsignal-language-spec.md` for grammar rules and section constraints.
