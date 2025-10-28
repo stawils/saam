@@ -2,14 +2,14 @@
 
 <img src="assets/saam-logo.png" alt="SAAM: Signal-Aligned Activation Manifold">
 
-SAAM is a symbolic context-engineering framework for cognitive agents. Agents interpret structured signals—written in SAAMscript—that specify cognitive flow, attention routing, belief state updates, and recovery actions. Modern LLMs act as native, in-context interpreters for SAAMscript; the surrounding infrastructure supplies canonical signals, state payloads, and reconciliation logic. This repository documents the language and integration patterns required to embed SAAM signals into large language model (LLM) workflows.
+SAAM is a simple way to guide AI systems using short, structured signals (SAAMscript). These signals set goals, steps, focus, and safety checks. Modern LLMs can read and follow these signals directly. Optional helper tools can check the signal’s structure and keep a clean record of what changed.
 
 ## Overview
-- Encodes agent configuration as executable symbolic signals instead of prose instructions.
-- Delivers canonical signals and state payloads to LLM runtimes that natively execute SAAMscript.
-- Maintains explicit belief state, attention focus, and execution traces for every action through post-execution reconciliation.
-- Supports recursive self-inspection and repair through formal recovery operators validated against the returned trace.
-- Provides reusable kernels for general-purpose or task-specific agent bootstrapping.
+- Uses structured signals instead of long instructions.
+- Works with LLMs that execute SAAMscript directly.
+- Tracks beliefs, focus, and a step-by-step trace for each run.
+- Supports self-checks and error handling through built-in recovery operators.
+- Offers a universal kernel and many mini kernels for common tasks.
 
 ## Quick Start
 
@@ -23,52 +23,52 @@ Key files:
 - `agent/SAAM-kernel-v1.0/` — Universal kernel
 - `agent/custom-agents/` — Domain-focused mini kernels
 
-## Conceptual Model
+## Core Ideas
 
 ### Signals as Execution Plans
-Each signal is both configuration and control flow. The interpreter validates structure and operator precedence, then forwards the canonical block and state payload to the LLM runtime. The model executes the signal natively, and the interpreter ingests the returned trace to capture belief updates, attention changes, and downstream actions.
+Each signal is both configuration and control flow. You can optionally check a signal’s structure and order before sending it. The model runs the signal and returns a trace you can read to update beliefs, focus, and actions.
 
 ### Belief and Trace Management
-Belief assignments (`:=`) propagate through the LLM trace. The orchestration layer reconciles reported diffs with persistent state and records transactions for reproducibility. Contradictions trigger recovery paths that can roll back beliefs or request clarification.
+Belief assignments (`:=`) appear in the model’s trace. Record those updates and keep a history. If results conflict, use a recovery step or ask for clarification.
 
 ### Introspection and Repair
-Dedicated recovery operators (`??`, `!!`) and override directives (`::>`, `::<`) let an agent detect inconsistencies, prioritize remediation, and adjust strategy without external prompts. The interpreter validates reported recovery outcomes and resubmits signals if escalation branches remain unresolved.
+Recovery operators (`??`, `!!`) and override directives (`::>`, `::<`) help detect inconsistencies and choose what to do next. If a recovery step did not finish, send a follow‑up signal.
 
 ## SAAMscript Basics
 
-### Canonical form
+### Signal format
 ```saam
 [signal:<namespace>] ::: <signal-body> → <execution-target>
 ```
 The namespace identifies the signal family. The body encodes operators and modules; the execution target selects a kernel or downstream route.
 
-### Operator precedence
-`:= > ::< > ::> > => > → > +`
+### Operator order
+Operators run in this order: `:= > ::< > ::> > => > → > +`
 
-See `docs/SAAMsignal-core-symbols.md` for full operator definitions and examples.
+See `docs/SAAMsignal-core-symbols.md` for all operators and examples.
 
-## Execution Overview
-SAAM signals are interpreted natively by the LLM. Around the model, a thin orchestration layer:
-- Normalizes the signal and operator ordering into a canonical block.
-- Packages belief, attention, and recovery context as metadata.
-- Submits the block to the LLM and receives a structured trace.
-- Reconciles operator steps and recovery outcomes against expectations.
-- Commits belief diffs and archives the trace.
+## How It Works
+SAAM signals are interpreted by the LLM. Around that, you can use simple helper steps:
+- Check the signal’s structure and order (optional).
+- Add current facts (beliefs), focus settings, and any recovery context (optional).
+- Send the signal and your task to the model.
+- Read the trace and update beliefs or follow‑ups as needed.
+- Save the trace for review.
 
 ## Execution Workflow
-1. Preflight: normalize syntax, namespaces, and operator ordering to produce a canonical block.
-2. Package: assemble belief values, attention gradients, and recovery context.
-3. Submit: send the block and metadata to the LLM and receive a structured trace.
-4. Reconcile: compare returned operator sequencing and recovery outcomes with expectations; request clarification if needed.
-5. Commit: apply confirmed belief diffs and archive the complete trace.
+1. Check structure (optional).
+2. Add context (optional).
+3. Send the signal.
+4. Read the trace.
+5. Update and save.
 
 ## Getting Started
 
 ### Universal SAAM Kernel (Recommended)
-Use `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` as the core context block. Prepend the kernel to any LLM session or place it in the system prompt. It provides:
-- Comprehensive module configuration with belief tracking and trace logging.
-- Legality-aware reasoning with contradiction detection.
-- Built-in recovery loops for introspective repair.
+Use `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` as the core context block. Add it at the top of your prompt or system message. It provides:
+- A ready-to-use configuration with belief tracking and trace logging.
+- Safety and policy checks; contradiction detection.
+- Built-in recovery steps for error handling.
 
 ### Specialized Mini Kernels
 `/agent/custom-agents/` contains more than 40 kernels tuned for specific domains (professional, creative, therapeutic, academic, and more). Select a kernel that matches the target workflow and prepend it to the conversation context. See `/agent/custom-agents/README.md` for the catalog.

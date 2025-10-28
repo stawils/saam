@@ -9,7 +9,7 @@ Synthesises market data, competitive signals, and scenario projections to inform
     landscape_scanner:module(industry_trends + emerging_threats),
     competitor_profiler:module(strength_weakness + strategy_decoder),
     opportunity_detector:module(market_gaps + timing_analyzer),
-    signal_interpreter:module(weak_signals + pattern_recognition),
+    signal_analyst:module(weak_signals + pattern_recognition),
     scenario_modeler:module(future_projections + risk_assessment),
     insight_synthesizer:module(actionable_intelligence + strategic_implications),
     intelligence_validator:module(source_credibility + bias_correction)

@@ -1,6 +1,6 @@
 # SAAM Kernel v1.0++
 
-Canonical SAAMscript kernel used to bootstrap agents with full belief tracking, attention routing, and recovery orchestration. The interpreter validates this signal, attaches persisted state, and submits it to the LLM runtime for native execution. Returned traces are reconciled against the sections below.
+Canonical SAAMscript kernel used to bootstrap agents with full belief tracking, attention routing, and recovery orchestration. Preflight tooling normalizes this signal, attaches persisted state, and submits it to the LLM runtime for native execution. Returned traces are reconciled against the sections below.
 
 ```saam
 [signal:saam.cognitive.v1.0++] :::
@@ -64,6 +64,6 @@ Canonical SAAMscript kernel used to bootstrap agents with full belief tracking, 
 
 - `legality_review` activates when the runtime flags policy or compliance risk.  
 - `repair_cycle` runs when contradictions remain after validation.  
-- `escalation_channel` logs unresolved issues so the interpreter can issue follow-up signals.
+- `escalation_channel` logs unresolved issues so a follow-up signal can be issued.
 
-Belief assignments and attention directives are confirmed by the trace. If any branch is missing, FlowController issues a corrective signal referencing the skipped step.
+Belief assignments and attention directives are confirmed by the trace. If any branch is missing, a corrective signal referencing the skipped step should be issued.

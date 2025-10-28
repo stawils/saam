@@ -1,6 +1,6 @@
 # SAAM Research Analyst Mini Kernel
 
-Focused configuration for fact-finding, comparative research, and evidence synthesis. The interpreter supplies current belief posture and pending research goals; the LLM runtime executes the signal and reports trace tokens describing each step.
+Focused configuration for fact-finding, comparative research, and evidence synthesis. The client supplies current belief posture and pending research goals; the LLM executes the signal and reports trace tokens describing each step.
 
 ```saam
 [signal:saam.research.analyst.mini++] :::

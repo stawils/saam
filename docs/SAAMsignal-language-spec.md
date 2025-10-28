@@ -3,7 +3,7 @@
 
 ## Overview
 
-SAAMscript expresses agent configuration as declarative signal blocks. The interpreter validates syntax, normalizes structure, and forwards canonical signals together with state payloads. The LLM runtime executes the signal directly and returns a trace that the interpreter reconciles with belief, attention, and recovery state.
+SAAMscript expresses agent configuration as declarative signal blocks. Optional preflight tooling can normalize structure and prepare state payloads. The LLM executes the signal directly and returns a trace, which the client reconciles with belief, attention, and recovery state.
 
 This document describes the grammar, permitted section patterns, and operator semantics required to author valid signals.
 
@@ -84,17 +84,17 @@ Notes:
 | Component        | Purpose                                                                                     |
 |------------------|---------------------------------------------------------------------------------------------|
 | `signal:<...>`   | Unique namespace used for trace indexing and override tables.                               |
-| `:::`            | Separates declaration from execution; interpreter splits sections at this boundary.         |
+| `:::`            | Separates declaration from execution.                                                       |
 | `<sections>`     | Ordered list of domain-specific sections (`config.modules`, `cognition.route`, etc.).       |
 | `→ <target>`     | Execution target or kernel route selected by the runtime.                                   |
 
-Sections may include sub-qualifiers (e.g., `config.modules`, `belief.state`). The interpreter checks qualifier usage against known templates but does not fix naming choices.
+Sections may include sub-qualifiers (e.g., `config.modules`, `belief.state`). Tools may check qualifier usage against known templates but do not enforce naming choices.
 
 ---
 
 ## Common Sections
 
-While SAAMscript allows arbitrary section names, the following conventions are recognised by the interpreter when constructing payloads:
+While SAAMscript allows arbitrary section names, the following conventions are recognised when constructing payloads:
 
 | Section                   | Expected Content                                                                    |
 |---------------------------|--------------------------------------------------------------------------------------|
@@ -151,5 +151,5 @@ Branches triggered through `??` and `!!` must resolve to symbols present in the 
 
 - Canonicalization removes redundant whitespace and normalizes list separators but preserves section order.  
 - Inline comments should not be used to transmit executable data.  
-- When the LLM omits required trace tokens, the interpreter issues a corrective signal referencing the missing operator sequence.  
-- For interpreter responsibilities and reconciliation flow, see the Execution Workflow section in `README.md`.
+- When the LLM omits required trace tokens, the client may issue a corrective signal referencing the missing operator sequence.  
+- For workflow and reconciliation flow, see the Execution Workflow section in `README.md`.

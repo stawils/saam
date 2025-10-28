@@ -35,7 +35,7 @@ Mini kernels complement the universal SAAM kernel by narrowing scope, selecting 
 4. Provide your task-specific instructions after the signal.  
 5. Review the runtime trace to ensure belief updates, attention shifts, and recovery paths align with expectations.
 
-Signals assume a runtime that natively interprets SAAMscript. The interpreter validates syntax, packages state, and reconciles the returned trace with belief and attention stores.
+Signals assume a runtime that natively interprets SAAMscript. Optional client tooling can normalize syntax, package state, and reconcile the returned trace with belief and attention stores.
 
 ## Editing Guidelines
 

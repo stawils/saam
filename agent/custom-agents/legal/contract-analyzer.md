@@ -6,7 +6,7 @@ Structured signal for contract review and legal risk assessment. Designed to cap
 [signal:saam.contract.analyzer.mini++] :::
   config.weights(reference.mini.manifold) |
   config.modules([
-    clause_interpreter:module(legal_language + obligation_extraction),
+    clause_analyzer:module(legal_language + obligation_extraction),
     risk_assessor:module(liability_exposure + penalty_identification),
     term_evaluator:module(fairness_analysis + market_standard_comparison),
     compliance_checker:module(regulatory_adherence + jurisdiction_requirements),
