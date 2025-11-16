@@ -1,19 +1,27 @@
 # SAAM — Signal-Aligned Activation Manifold
 
-<img src="assets/saam-logo.png" alt="SAAM: Signal-Aligned Activation Manifold">
+<div align="center">
 
-SAAM (Signal-Aligned Activation Manifold) is a technical framework for guiding large language models (LLMs) using structured signals written in SAAMscript, a symbolic language. The framework enables fine-grained control over LLM reasoning processes by providing cognitive blueprints that specify goals, reasoning paths, safety constraints, and error recovery procedures.
+![SAAM Logo](assets/saam-logo.png "SAAM: Signal-Aligned Activation Manifold")
+
+
+**SAAM** (Signal-Aligned Activation Manifold) is a technical framework for guiding large language models (LLMs) using structured signals written in SAAMscript, a symbolic language.
+
+</div>
 
 ## Table of Contents
 - [Overview](#overview)
-- [Installation](#installation)
 - [Technical Architecture](#technical-architecture)
+- [Installation](#installation)
 - [Usage](#usage)
-- [API Reference](#api-reference)
 - [Configuration](#configuration)
+- [API Reference](#api-reference)
 - [Examples](#examples)
+- [Tools and Integrations](#tools-and-integrations)
 - [Contributing](#contributing)
 - [License](#license)
+
+---
 
 ## Overview
 
@@ -25,10 +33,14 @@ SAAM provides structured control over LLM behavior through symbolic signals that
 - Offer domain-specific kernel implementations
 
 ### What Problem Does SAAM Solve?
+
 Traditional prompting methods provide limited control over LLM reasoning processes, leading to inconsistent outputs and difficulty tracking decision-making paths. SAAM addresses this by offering structured cognitive blueprints that guide model behavior predictably.
 
 ### Technologies Used
+
 SAAM is implemented as plain text signals and requires no special software. It operates by providing structured instructions in SAAMscript that LLMs interpret during execution.
+
+---
 
 ## Technical Architecture
 
@@ -45,13 +57,15 @@ SAAM is implemented as plain text signals and requires no special software. It o
 4. Belief tracking and update recording
 5. Recovery procedure execution when needed
 
+---
+
 ## Installation
 
 SAAM requires no installation as it operates through structured text prompts. To begin using SAAM:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/saam.git
+   git clone https://github.com/tsuser/AI/saam.git
    ```
 
 2. Navigate to the agent directory to access kernels:
@@ -69,6 +83,8 @@ SAAM requires no installation as it operates through structured text prompts. To
    /agent/custom-agents/
    ```
 
+---
+
 ## Usage
 
 ### Universal Kernel (Recommended)
@@ -82,7 +98,7 @@ SAAM requires no installation as it operates through structured text prompts. To
 3. Add your task after the kernel specification
 
 ### Basic Signal Format
-```
+```saam
 [signal:<namespace>] ::: <body> → <target>
 ```
 
@@ -95,6 +111,8 @@ Where:
 ```
 := > ::< > ::> > => > → > +
 ```
+
+---
 
 ## Configuration
 
@@ -113,6 +131,8 @@ For complete operator reference, see:
 - `docs/SAAMsignal-language-spec.md`
 - `docs/SAAMsignal-core-symbols.md`
 
+---
+
 ## API Reference
 
 SAAM operates through structured text signals. No API calls are required beyond normal LLM interactions.
@@ -125,6 +145,8 @@ SAAM operates through structured text signals. No API calls are required beyond 
 - `mod.kernel()` - Applies safety constraints
 - `cognition.route()` - Details processing steps
 - `response.texture()` - Formats output style
+
+---
 
 ## Examples
 
@@ -156,26 +178,15 @@ Write a Python function that filters even numbers from a list and returns them i
 Write a tense sci-fi scene where Captain Eva confronts Kael about suspected sabotage.
 ```
 
+---
+
 ## Tools and Integrations
 
 ### SAAM Tools on ChatGPT
 - [SAAMGPT](https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt): Full kernel integration for legality-first reasoning and belief repair.
 - [SAAM Converter](https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter): Converts natural-language prompts into structured SAAM signals.
 - [SAAM Text2Img Generator](https://chatgpt.com/g/g-681f7688e6cc8191a54b7373809624b5-saam-text2img-generator): A symbolic image generation agent that interprets structured prompts using SAAM signal language. It aligns mood, scene, and composition with symbolic consistency and traceable intent routing.
-
-## Contributing
-
-We welcome contributions to the SAAM framework. To contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests if applicable
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-Please ensure your code follows the existing style and includes appropriate documentation.
+---
 
 ## License
 
