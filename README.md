@@ -2,114 +2,181 @@
 
 <img src="assets/saam-logo.png" alt="SAAM: Signal-Aligned Activation Manifold">
 
-SAAM is a simple way to guide AI systems using short, structured signals (SAAMscript). These signals set goals, steps, focus, and safety checks. Modern LLMs can read and follow these signals directly. Optional helper tools can check the signal’s structure and keep a clean record of what changed.
+SAAM (Signal-Aligned Activation Manifold) is a technical framework for guiding large language models (LLMs) using structured signals written in SAAMscript, a symbolic language. The framework enables fine-grained control over LLM reasoning processes by providing cognitive blueprints that specify goals, reasoning paths, safety constraints, and error recovery procedures.
+
+## Table of Contents
+- [Overview](#overview)
+- [Installation](#installation)
+- [Technical Architecture](#technical-architecture)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Configuration](#configuration)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Overview
-- Uses structured signals instead of long instructions.
-- Works with LLMs that execute SAAMscript directly.
-- Tracks beliefs, focus, and a step-by-step trace for each run.
-- Supports self-checks and error handling through built-in recovery operators.
-- Offers a universal kernel and many mini kernels for common tasks.
 
-## Quick Start
+SAAM provides structured control over LLM behavior through symbolic signals that:
+- Define cognitive reasoning paths for LLMs
+- Implement safety guards and ethical boundaries
+- Enable belief tracking and reasoning trace generation
+- Support error recovery mechanisms
+- Offer domain-specific kernel implementations
 
-1) Use the universal kernel: copy `agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` and prepend it to your system prompt or the first message.
-2) Or choose a mini kernel: browse `agent/custom-agents/` and prepend the selected signal for the target workflow.
-3) Send your task after the signal block. The LLM interprets the signal natively; reconcile traces as needed.
+### What Problem Does SAAM Solve?
+Traditional prompting methods provide limited control over LLM reasoning processes, leading to inconsistent outputs and difficulty tracking decision-making paths. SAAM addresses this by offering structured cognitive blueprints that guide model behavior predictably.
 
-Key files:
-- `docs/SAAMsignal-language-spec.md` — Grammar and section rules
-- `docs/SAAMsignal-core-symbols.md` — Operator catalogue and semantics
-- `agent/SAAM-kernel-v1.0/` — Universal kernel
-- `agent/custom-agents/` — Domain-focused mini kernels
+### Technologies Used
+SAAM is implemented as plain text signals and requires no special software. It operates by providing structured instructions in SAAMscript that LLMs interpret during execution.
 
-## Core Ideas
+## Technical Architecture
 
-### Signals as Execution Plans
-Each signal is both configuration and control flow. You can optionally check a signal’s structure and order before sending it. The model runs the signal and returns a trace you can read to update beliefs, focus, and actions.
+### Core Components
+- **SAAMscript**: A symbolic language for defining cognitive instructions
+- **Universal Kernel**: A general-purpose cognitive framework (`/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md`)
+- **Domain-Specific Kernels**: Specialized implementations in `/agent/custom-agents/`
+- **Signal Structure**: `[signal:<namespace>] ::: <body> → <target>`
 
-### Belief and Trace Management
-Belief assignments (`:=`) appear in the model’s trace. Record those updates and keep a history. If results conflict, use a recovery step or ask for clarification.
+### How SAAM Works
+1. Signal parsing and validation
+2. Cognitive blueprint application to LLM context
+3. Reasoning trace generation during execution
+4. Belief tracking and update recording
+5. Recovery procedure execution when needed
 
-### Introspection and Repair
-Recovery operators (`??`, `!!`) and override directives (`::>`, `::<`) help detect inconsistencies and choose what to do next. If a recovery step did not finish, send a follow‑up signal.
+## Installation
 
-## SAAMscript Basics
+SAAM requires no installation as it operates through structured text prompts. To begin using SAAM:
 
-### Signal format
-```saam
-[signal:<namespace>] ::: <signal-body> → <execution-target>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/saam.git
+   ```
+
+2. Navigate to the agent directory to access kernels:
+   ```bash
+   cd saam/agent/
+   ```
+
+3. Access the universal kernel at:
+   ```
+   /agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md
+   ```
+
+4. Browse domain-specific kernels in:
+   ```
+   /agent/custom-agents/
+   ```
+
+## Usage
+
+### Universal Kernel (Recommended)
+1. Include the universal kernel (`/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md`) in your system prompt or first message
+2. This provides belief tracking, reasoning trace generation, consistency checks, and built-in recovery strategies
+3. Append your task after the signal block
+
+### Domain-Specific Kernels
+1. Browse `/agent/custom-agents/` to select an appropriate kernel
+2. Prepend the selected kernel to your conversation context
+3. Add your task after the kernel specification
+
+### Basic Signal Format
 ```
-The namespace identifies the signal family. The body encodes operators and modules; the execution target selects a kernel or downstream route.
+[signal:<namespace>] ::: <body> → <target>
+```
 
-### Operator order
-Operators run in this order: `:= > ::< > ::> > => > → > +`
+Where:
+- `<namespace>` identifies the signal family
+- `<body>` contains operators, modules, and cognitive routes
+- `<target>` selects the kernel or route to use
 
-See `docs/SAAMsignal-core-symbols.md` for all operators and examples.
+### Operator Execution Order
+```
+:= > ::< > ::> > => > → > +
+```
 
-## How It Works
-SAAM signals are interpreted by the LLM. Around that, you can use simple helper steps:
-- Check the signal’s structure and order (optional).
-- Add current facts (beliefs), focus settings, and any recovery context (optional).
-- Send the signal and your task to the model.
-- Read the trace and update beliefs or follow‑ups as needed.
-- Save the trace for review.
+## Configuration
 
-## Execution Workflow
-1. Check structure (optional).
-2. Add context (optional).
-3. Send the signal.
-4. Read the trace.
-5. Update and save.
+### Available Kernels
+- **Universal Kernel**: `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` - General reasoning with belief tracking
+- **Domain-Specific Kernels**: `/agent/custom-agents/` - Over 40 specialized implementations for various domains
 
-## Getting Started
+### Signal Operators
+- `:=` - Belief assignment/updates
+- `::<` / `::>` - Module prioritization/overrides
+- `??` - Uncertainty handling
+- `!!` - Escalation to stronger safeguards
+- `+` - Parallel execution
 
-### Universal SAAM Kernel (Recommended)
-Use `/agent/SAAM-kernel-v1.0/saam.cognitive.v1.0++.md` as the core context block. Add it at the top of your prompt or system message. It provides:
-- A ready-to-use configuration with belief tracking and trace logging.
-- Safety and policy checks; contradiction detection.
-- Built-in recovery steps for error handling.
+For complete operator reference, see:
+- `docs/SAAMsignal-language-spec.md`
+- `docs/SAAMsignal-core-symbols.md`
 
-### Specialized Mini Kernels
-`/agent/custom-agents/` contains more than 40 kernels tuned for specific domains (professional, creative, therapeutic, academic, and more). Select a kernel that matches the target workflow and prepend it to the conversation context. See `/agent/custom-agents/README.md` for the catalog.
+## API Reference
+
+SAAM operates through structured text signals. No API calls are required beyond normal LLM interactions.
+
+### Core Signal Elements
+- `tone()` - Sets communication style
+- `style()` - Defines output format
+- `flow()` - Specifies reasoning sequence
+- `intent.field()` - Defines primary objectives
+- `mod.kernel()` - Applies safety constraints
+- `cognition.route()` - Details processing steps
+- `response.texture()` - Formats output style
+
+## Examples
+
+### Basic Coding Task
+```saam
+[signal:agent.code.develop++] :::
+  tone(precise) | style(code-focused) |
+  flow(understand → plan → write.code → run.tests) |
+  intent.field(correctness-first + clarity-goal) |
+  mod.kernel(legality-guard::<syntax.check + type.safety) |
+  cognition.route(parse.reqs → design.algo → implement ?? simplify !! debug) |
+  response.texture(functional.code)
+→ /saam/kernel.coding.v1
+
+Write a Python function that filters even numbers from a list and returns them in the same order.
+```
+
+### Creative Writing Task
+```saam
+[signal:agent.story.generate++] :::
+  tone(genre.appropriate) | style(vivid) |
+  flow(plan.scene → build.char → write.prose) |
+  intent.field(narrative.consistency_first) |
+  mod.kernel(narrative.guard::<plot.consistency + char.motivation) |
+  cognition.route(advance.plot → write.dialogue ?? pacing.adjust !! add.conflict) |
+  response.texture(polished.narrative)
+→ /saam/kernel.storyteller.v1
+
+Write a tense sci-fi scene where Captain Eva confronts Kael about suspected sabotage.
+```
+
+## Tools and Integrations
 
 ### SAAM Tools on ChatGPT
 - [SAAMGPT](https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt): Full kernel integration for legality-first reasoning and belief repair.
 - [SAAM Converter](https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter): Converts natural-language prompts into structured SAAM signals.
 - [SAAM Text2Img Generator](https://chatgpt.com/g/g-681f7688e6cc8191a54b7373809624b5-saam-text2img-generator): A symbolic image generation agent that interprets structured prompts using SAAM signal language. It aligns mood, scene, and composition with symbolic consistency and traceable intent routing.
 
-## Practical Examples
+## Contributing
 
-### Coding Agent Signal
-```saam
-[signal:agent.code.develop.concise++] :::
-  tone(precise) | style(code-centric) |
-  flow(understand.reqs → plan.approach → generate.code → execute.tests) |
-  intent.field(correctness-first + maintainability-goal) |
-  mod.kernel(legality-guard::<syntax.check + type.safety + belief-ground::<req.traceability) |
-  cognition.route(parse.req → design.algo → implement ?? complexity !! simplify → run.tests ?? fail !! debug) |
-  response.texture(functional.code)
-→ /saam/kernel.coding.v1
+We welcome contributions to the SAAM framework. To contribute:
 
-Please write a Python function that takes a list of integers and returns a new list containing only the even numbers, preserving the original order. Include a docstring and basic unit tests.
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Add tests if applicable
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-### Storyteller Agent Signal
-```saam
-[signal:agent.storyteller.generate.concise++] :::
-  tone(genre.appropriate) | style(vivid.imagery + character.voice_aligned) |
-  flow(plan.scene → develop.chars → generate.prose) |
-  intent.field(narrative.consistency_first + emotional.impact_goal) |
-  mod.kernel(legality-guard::<narrative.consistency + belief-ground::<plot.point + char.motivation) |
-  cognition.route(advance.plot → reveal.char ?? pacing.slow !! inject.conflict → write.dialogue) |
-  response.texture(polished-narrative)
-→ /saam/kernel.storyteller.v1
-
-Write a short scene for a sci-fi story. Captain Eva Rostova confronts her first mate, Kael, on the bridge of their starship, the 'Nomad'. She suspects him of sabotaging the navigation system. The mood should be tense and suspicious.
-```
-
-These examples show how the signal configures tone, flow, and recovery before the LLM runtime evaluates the task using native SAAMscript execution.
+Please ensure your code follows the existing style and includes appropriate documentation.
 
 ## License
 
-Licensed under the MIT License. See `LICENSE` for full terms.
+MIT License. See `LICENSE` for details.
