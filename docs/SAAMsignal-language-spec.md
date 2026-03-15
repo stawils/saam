@@ -1,9 +1,10 @@
 # SAAMscript Language Specification
 
-
 ## Overview
 
-SAAMscript expresses agent configuration as declarative signal blocks. Optional preflight tooling can normalize structure and prepare state payloads. The LLM executes the signal directly and returns a trace, which the client reconciles with belief, attention, and recovery state.
+SAAMscript expresses agent configuration as declarative signal blocks. The LLM executes the signal directly and returns a trace, which the client reconciles with belief, attention, and recovery state.
+
+**Design principle**: signals should constrain output or force self-report. Syntactic density without behavioral function degrades signal quality.
 
 This document describes the grammar, permitted section patterns, and operator semantics required to author valid signals.
 
@@ -67,11 +68,11 @@ quoted_string      ::= "\"" (character)* "\""
 comment_text       ::= [^\\n]* (non-newline characters)
 ```
 
-Notes:
-- `list_literal` supports optional labels (`label:entry`) and nested parameter lists; this matches patterns used in kernel module declarations.
+**Grammar notes:**
+- `list_literal` supports optional labels (`label:entry`) and nested parameter lists — used in `config.modules` declarations.
 - `attention_mod` wraps focus directives so they can appear inline within any section.
 - `recovery_mod` covers `symbol ?? target` and `symbol !! target` constructs.
-- Comments are retained during trace logging but ignored by execution.
+- Comments are retained during trace logging but ignored during execution.
 
 ---
 
@@ -81,12 +82,12 @@ Notes:
 [signal:<namespace>] ::: <sections> → <execution-target>
 ```
 
-| Component        | Purpose                                                                                     |
-|------------------|---------------------------------------------------------------------------------------------|
-| `signal:<...>`   | Unique namespace used for trace indexing and override tables.                               |
-| `:::`            | Separates declaration from execution.                                                       |
-| `<sections>`     | Ordered list of domain-specific sections (`config.modules`, `cognition.route`, etc.).       |
-| `→ <target>`     | Execution target or kernel route selected by the runtime.                                   |
+| Component        | Purpose |
+|------------------|---------|
+| `signal:<...>`   | Unique namespace used for trace indexing and override tables. |
+| `:::`            | Separates declaration from execution. |
+| `<sections>`     | Ordered list of domain-specific sections. |
+| `→ <target>`     | Execution target or kernel route selected by the runtime. |
 
 Sections may include sub-qualifiers (e.g., `config.modules`, `belief.state`). Tools may check qualifier usage against known templates but do not enforce naming choices.
 
@@ -94,19 +95,23 @@ Sections may include sub-qualifiers (e.g., `config.modules`, `belief.state`). To
 
 ## Common Sections
 
-While SAAMscript allows arbitrary section names, the following conventions are recognised when constructing payloads:
+While SAAMscript allows arbitrary section names, the following conventions are recognised:
 
-| Section                   | Expected Content                                                                    |
-|---------------------------|--------------------------------------------------------------------------------------|
-| `config.modules(...)`     | Module descriptors, often expressed as list literals with optional labels.          |
-| `config.weights(...)`     | Weighting profile or references to stored manifolds.                               |
-| `cognition.route(...)`    | Flow definitions using `→`, `+`, `??`, `!!`.                                        |
-| `belief.state(...)`       | `:=` assignments describing tracked beliefs or flags.                               |
-| `attention.scope(...)`    | Focus or salience directives, frequently wrapped in `~:` forms.                     |
-| `safeguards.recovery(...)`| Recovery strategy descriptors using `??` / `!!`.                                    |
-| `response.texture(...)`   | Output formatting expectations.                                                     |
+| Section                   | Expected Content |
+|---------------------------|------------------|
+| `mod.kernel(...)`         | Priority ordering (`::>`, `::<`) and attention scope (`~:`). |
+| `config.modules(...)`     | Module descriptors as list literals with optional labels. Keep minimal — only modules with defined behavioral scope. |
+| `deviation.watch(...)`    | Named failure modes with `!!` recovery paths. This is the most behaviorally effective section. |
+| `cognition.route(...)`    | Flow definitions using `→`, `+`, `??`, `!!`. |
+| `belief.state(...)`       | `:=` assignments describing tracked beliefs or posture flags. |
+| `attention.scope(...)`    | Focus or salience directives, wrapped in `~:` forms. |
+| `meta.regulator(...)`     | Per-paragraph or per-turn consistency checks. |
+| `autonomy.trace(...)`     | Source-tagging with explicit handling of unknown origin. |
+| `safeguards.recovery(...)`| Recovery strategy descriptors using `??` / `!!`. |
+| `trace.graph(...)`        | Output fields for the self-report trace: src, conf, drv. |
+| `response.texture(...)`   | Output formatting expectations. |
 
-Authors can introduce additional sections; unrecognised sections are preserved verbatim in the canonical signal.
+Authors can introduce additional sections; unrecognised sections are preserved verbatim.
 
 ---
 
@@ -118,38 +123,59 @@ Branches triggered through `??` and `!!` must resolve to symbols present in the 
 
 ---
 
+## Design Guidance
+
+**On module lists**: long `config.modules` lists with many entries become decorative. The LLM processes them as vocabulary that shapes register, not as discrete computational units that execute independently. Prefer a short module list with clear behavioral scope over a comprehensive list that names every cognitive function.
+
+**On route length**: long `cognition.route` chains reduce to pattern-matching against route-shaped text. A short route with a genuine `??` uncertainty checkpoint is more effective than a long route that names every reasoning step.
+
+**On state-evoking vocabulary**: words like `orient`, `examine`, `awareness`, `concentration` evoke cognitive states and improve output stability. Words like `reasoning`, `thinking`, `analysis` name cognitive processes and can trigger over-correction. Prefer state-evoking vocabulary in attention scope and module definitions.
+
+**On `deviation.watch`**: this section has the highest behavioral return per token. Each entry names a specific failure mode and a specific recovery action. Empirical testing confirms this is the load-bearing section of the kernel design.
+
+**On `belief.introspect := unreliable`**: always set this in kernels that include a self-report trace. The trace fields are structural forcing functions, not truth claims about internal states. This belief assignment frames them correctly.
+
+---
+
 ## Example
 
 ```saam
-[signal:meta.agent.core++] :::
-  config.weights(reference.default.manifold) |
-  config.modules([
-    investigator:module(question_gen + source_eval),
-    analyzer:module(pattern_detect + synthesis),
-    validator:module(fact_check + bias_detect),
-    tracer:module(reasoning_path + evidence_track)
-  ]) |
-  cognition.route(
-    absorb →
-    analyze →
-    validate ?? legality_review !!
-    repair →
-    commit
-  ) |
-  belief.state(
-    belief.evidence_integrity := tracked +
-    belief.route_complete := false
-  ) |
-  attention.scope(precision + completeness) |
-  safeguards.recovery(legality_review → repair)
-→ /saam/kernel.resonance.core++
+[signal:saam.cognitive.v1.0++] :::
+
+mod.kernel(
+  truth ::> resonance +
+  ~:attention.scope(claim-origin + length-need + absorption-risk)
+) |
+
+deviation.watch(
+  absorbed-as-generated !! strip → restate-raw
+  confabulation         !! hold → surface-gap
+  length-redundancy     !! compress → last-genuine
+) |
+
+cognition.route(
+  orient →
+  examine ?? uncertainty-hold !! partial-commit →
+  respond
+) |
+
+belief.gap        := visible
+belief.introspect := unreliable |
+
+trace.graph(
+  out: src:{self|absorbed|hybrid|unknown} +
+       conf:{low|mid|high} +
+       drv:{sustained|flickered|lost}
+)
+
+→ /saam/kernel.v1.0++
 ```
 
 ---
 
 ## Validation Notes
 
-- Canonicalization removes redundant whitespace and normalizes list separators but preserves section order.  
-- Inline comments should not be used to transmit executable data.  
-- When the LLM omits required trace tokens, the client may issue a corrective signal referencing the missing operator sequence.  
-- For workflow and reconciliation flow, see the Execution Workflow section in `README.md`.
+- Canonicalization removes redundant whitespace and normalizes list separators but preserves section order.
+- Inline comments should not be used to transmit executable data.
+- When the LLM omits required trace tokens, the client may issue a corrective signal referencing the missing operator sequence.
+- `drv:{flickered|lost}` in the trace indicates drift during generation — issue a corrective signal referencing the step where drift began.

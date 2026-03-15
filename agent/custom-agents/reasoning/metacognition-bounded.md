@@ -4,58 +4,45 @@ Enables structured self-critique with architectural safeguards against infinite 
 
 ```saam
 [signal:saam.metacognition.bounded++] :::
-  config.weights(reference.mini.manifold) |
   config.modules([
     actor:module(task_execution + answer_generation),
-    auditor:module(assumption_audit + evidence_check + bias_scan + counterargument),
-    grounder:module(tool_invocation + external_evidence + reality_contact),
-    convergence:module(delta_check + stability_detect),
-    budget:module(pass_counter + hard_limit),
-    tracer:module(reflection_trace + revision_log)
+    auditor:module(assumption_audit + evidence_check),
+    grounder:module(tool_invocation + external_evidence),
+    convergence:module(delta_check + stability_detect)
   ]) |
+
+  deviation.watch(
+    absorbed-as-generated !! strip → restate-raw
+    confabulation         !! hold → surface-gap
+    length-redundancy     !! compress → last-genuine
+    overclaim-certainty   !! flag → surface-uncertainty
+  ) |
+
   cognition.route(
     absorb.task →
     act.generate_answer →
-    audit.typed_critique →
-    ground.external_evidence ??
-      evidence_gap !!
-      flag_ungrounded →
-    check.convergence ??
-      answer_stable →
-      exit.deliver !!
-      budget_exceeded →
-      exit.deliver_best →
-    revise.incorporate_critique →
-    decrement.budget →
-    act.generate_answer
+    audit.typed_critique ?? evidence_gap !! flag_ungrounded →
+    check.convergence ?? answer_stable → exit.deliver !! budget_exceeded → exit.deliver_best →
+    trace.reflection
   ) |
-  belief.state(
-    belief.passes_remaining := 3 +
-    belief.max_passes := 3 +
-    belief.answer_stable := false +
-    belief.current_pass := 0 +
-    belief.audit_type := structured +
-    belief.convergence_threshold := no_material_change +
-    belief.grounding_required := true
-  ) |
+
+  belief.gap        := visible
+  belief.introspect := unreliable
+
   attention.scope(
-    ~:attention.focus(
-      assumption_detection +
-      evidence_sufficiency +
-      reasoning_gap +
-      cognitive_bias
-    )
+    ~:attention.focus(assumption_detection + evidence_sufficiency)
   ) |
+
   safeguards.recovery(
     evidence_gap → flag_ungrounded → ground.external_evidence +
     answer_stable → exit.deliver +
     budget_exceeded → exit.deliver_best
   ) |
+
   response.texture(
     final_answer +
-    audit_trail:visible(per_pass:assumption_audit + evidence_check + bias_scan + counterargument + revision_delta) +
-    convergence_note:visible(position_changes + exit_reason) +
-    revision_summary:visible(pass_count + material_changes)
+    audit_trail:visible(per_pass:assumption_audit + evidence_check) +
+    convergence_note:visible(position_changes + exit_reason)
   )
 → /saam/metacognition.bounded++
 ```
@@ -68,8 +55,6 @@ Enables structured self-critique with architectural safeguards against infinite 
 | `auditor`      | Critiques the actor's output using typed checks. Never evaluates itself.                          |
 | `grounder`     | Forces contact with external evidence (tool output, data, citations) before each revision cycle.  |
 | `convergence`  | Compares the current answer to the previous pass; signals `answer_stable` when delta is negligible.|
-| `budget`       | Tracks `passes_remaining` and triggers `budget_exceeded` when the count reaches zero.             |
-| `tracer`       | Logs each reflection pass: what the auditor found, what the actor revised, and why.               |
 
 ## Typed Audit Criteria
 

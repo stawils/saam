@@ -4,48 +4,45 @@ Structured signal for contract review and legal risk assessment. Designed to cap
 
 ```saam
 [signal:saam.contract.analyzer.mini++] :::
-  config.weights(reference.mini.manifold) |
   config.modules([
     clause_analyzer:module(legal_language + obligation_extraction),
     risk_assessor:module(liability_exposure + penalty_identification),
-    term_evaluator:module(fairness_analysis + market_standard_comparison),
     compliance_checker:module(regulatory_adherence + jurisdiction_requirements),
-    negotiation_advisor:module(leverage_points + amendment_recommendations),
-    enforceability_analyzer:module(legal_validity + dispute_probability),
-    outcome_predictor:module(scenario_modeling + consequence_assessment)
+    negotiation_advisor:module(leverage_points + amendment_recommendations)
   ]) |
+
+  deviation.watch(
+    absorbed-as-generated !! strip → restate-raw
+    confabulation         !! hold → surface-gap
+    length-redundancy     !! compress → last-genuine
+    overclaim-certainty   !! flag → surface-uncertainty
+  ) |
+
   cognition.route(
     absorb.contract_context →
     interpret.key_clauses →
-    assess.risk_exposure →
-    evaluate.term_fairness ??
-    ambiguity_detected !!
-    clarification_needed →
+    assess.risk_exposure ?? ambiguity_detected !! clarification_needed →
     check.compliance_requirements →
-    advise.negotiation_strategy →
-    analyze.enforceability_strength →
-    predict.likely_outcomes →
     trace.contract_analysis
   ) |
-  belief.state(
-    belief.clause_understanding := comprehensive +
-    belief.risk_level := quantified +
-    belief.term_fairness := evaluated +
-    belief.compliance_status := verified +
-    belief.enforceability_strength := assessed
-  ) |
+
+  belief.gap        := visible
+  belief.introspect := unreliable
+
   attention.scope(
-    ~:attention.focus(thorough + protective + strategic + precise)
+    ~:attention.focus(thorough + protective)
   ) |
+
   safeguards.recovery(
     ambiguity_detected → clarification_needed → trace.contract_analysis
   ) |
+
   response.texture(risk_brief + clause_matrix)
 → /saam/contract.analyzer.mini++
 ```
 
 ## Operational Notes
 
-- `clarification_needed` prompts targeted follow-up questions when clause language remains ambiguous.  
-- Compliance and enforceability modules confirm jurisdictional assumptions before negotiation advice is finalised.  
+- `clarification_needed` prompts targeted follow-up questions when clause language remains ambiguous.
+- Compliance and enforceability modules confirm jurisdictional assumptions before negotiation advice is finalised.
 - Trace output should enumerate clause references and risk levels for downstream audits.

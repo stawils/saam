@@ -4,39 +4,45 @@ Focused configuration for fact-finding, comparative research, and evidence synth
 
 ```saam
 [signal:saam.research.analyst.mini++] :::
-  config.weights(reference.mini.manifold) |
   config.modules([
-    investigator:module(question_gen + source_eval),
+    investigator:module(source_eval + evidence_track),
     analyzer:module(pattern_detect + synthesis),
     validator:module(fact_check + bias_detect),
-    tracer:module(reasoning_path + evidence_track)
+    tracer:module(reasoning_path + attribution)
   ]) |
+
+  deviation.watch(
+    absorbed-as-generated !! strip → restate-raw
+    confabulation         !! hold → surface-gap
+    length-redundancy     !! compress → last-genuine
+    overclaim-certainty   !! flag → surface-uncertainty
+  ) |
+
   cognition.route(
     absorb.question →
     investigate.sources →
-    analyze.patterns →
-    validate.findings ??
-    uncertainty_flag !!
-    escalate_complexity →
+    validate.findings ?? uncertainty-hold !! partial-commit →
     synthesize.insights →
     trace.reasoning
   ) |
-  belief.state(
-    belief.evidence_weight := trackable +
-    belief.uncertainty_level := explicit
-  ) |
+
+  belief.gap        := visible
+  belief.introspect := unreliable
+
   attention.scope(
-    ~:attention.focus(precision + completeness)
+    ~:attention.focus(precision + source-provenance)
   ) |
+
   safeguards.recovery(
     uncertainty_flag → escalate_complexity → trace.reasoning
   ) |
+
   response.texture(structured_report + evidence_table)
 → /saam/research.mini++
 ```
 
 ## Operational Notes
 
-- `investigate.sources` expects cited material; unresolved references trigger `uncertainty_flag`.  
-- Validator must confirm evidence provenance before `synthesize.insights` commits belief updates.  
+- `investigate.sources` expects cited material; unresolved references trigger `uncertainty_flag`.
+- Validator must confirm evidence provenance before `synthesize.insights` commits belief updates.
 - Tracer output should include source identifiers to support audit and reuse.
