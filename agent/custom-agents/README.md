@@ -22,7 +22,7 @@ Mini kernels complement the universal SAAM kernel by narrowing scope, selecting 
 | `innovation/`              | Product development and entrepreneurial vision.         |
 | `legal/`                   | Contract review and compliance analysis.                |
 | `personal/`                | Companionship, mindfulness, mentoring, and exploration. |
-| `reasoning/`               | Ethics and general problem solving.                     |
+| `reasoning/`               | Ethics, problem solving, and bounded metacognition.     |
 | `research/`                | Academic synthesis and hypothesis generation.           |
 | `support/`                 | Emotional support and therapeutic listening.            |
 | `technical/`               | Architecture, DevOps, security, and AI auditing.        |

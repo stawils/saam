@@ -186,6 +186,8 @@ Write a tense sci-fi scene where Captain Eva confronts Kael about suspected sabo
 - [SAAMGPT](https://chatgpt.com/g/g-6806ba323f24819180a2a11ba4067384-saamgpt): Full kernel integration for legality-first reasoning and belief repair.
 - [SAAM Converter](https://chatgpt.com/g/g-67ec188b7b8081919387b2c28c9f1dec-saam-converter): Converts natural-language prompts into structured SAAM signals.
 - [SAAM Text2Img Generator](https://chatgpt.com/g/g-681f7688e6cc8191a54b7373809624b5-saam-text2img-generator): A symbolic image generation agent that interprets structured prompts using SAAM signal language. It aligns mood, scene, and composition with symbolic consistency and traceable intent routing.
+- **[SAAM Kernel Creator](../.claude/skills/saam-kernel-creator): Create custom SAAM kernels by describing requirements. Generates valid SAAMscript signals with proper operator precedence, module declarations, and cognitive architecture. Ideal for developers, researchers, and organizations building AI agents with verifiable reasoning trails.
+---
 ---
 
 ## License
